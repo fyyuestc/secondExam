@@ -17,6 +17,8 @@ class ViewController: UIViewController,UITextFieldDelegate,UITableViewDataSource
     @IBOutlet weak var tableView2: UITableView!
     @IBOutlet weak var label2: UILabel!
     
+    @IBOutlet weak var button1Label: UIButton!
+    @IBOutlet weak var button2Label: UIButton!
     //tableView的数组
     var table1 = [String]()
     var table2 = [String]()
@@ -50,6 +52,21 @@ class ViewController: UIViewController,UITextFieldDelegate,UITableViewDataSource
         //回车隐藏键盘
         textField.resignFirstResponder()
         return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateSaveButtonState()
+    }
+    //使Button在键盘输入时无效,避免输入空增加BUG
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        button1Label.isEnabled = false
+        button2Label.isEnabled = false
+    }
+    //更新
+    private func updateSaveButtonState(){
+        let textFiel1 = textField1.text ?? ""
+        button1Label.isEnabled = !textFiel1.isEmpty
+        let textFiel2 = textField1.text ?? ""
+        button2Label.isEnabled = !textFiel2.isEmpty
     }
     //tableView1添加
     @IBAction func button1(_ sender: Any) {
@@ -112,7 +129,7 @@ class ViewController: UIViewController,UITextFieldDelegate,UITableViewDataSource
         table1.append("1")
         table2.append("12")
         table2.append("13")
-
+      
     }
 
 
